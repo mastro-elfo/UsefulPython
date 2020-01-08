@@ -1,5 +1,6 @@
 from functools import wraps
 
+
 def decorator(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
@@ -7,4 +8,5 @@ def decorator(func):
         result = func(*args, **kwargs)
         # After func
         return result
+
     return wrapper

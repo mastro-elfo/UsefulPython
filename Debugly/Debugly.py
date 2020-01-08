@@ -18,8 +18,10 @@ class Bar(object):
 ```
 """
 
+
 def debugly(func):
     """Decorates functions and methods with `logging.debug`."""
+
     @wraps(func)
     def wrapper(*args, **kwargs):
         # Before func
@@ -27,17 +29,19 @@ def debugly(func):
         result = func(*args, **kwargs)
         # After func
         return result
+
     return wrapper
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     logging.basicConfig(
-        format = '%(asctime)s [%(levelname)s]: %(message)s',
-        level = logging.DEBUG,
-        filename = None
+        format="%(asctime)s [%(levelname)s]: %(message)s",
+        level=logging.DEBUG,
+        filename=None,
     )
 
     @debugly
-    def foo(a, b = 1):
+    def foo(a, b=1):
         print(a, b)
 
-    foo(0, b = 1)
+    foo(0, b=1)

@@ -1,4 +1,3 @@
-
 """Utility class to solve a problem using backtrack algorithm.
 
 Example
@@ -17,6 +16,7 @@ class MySolver(Backtrack):
 MySolver().solve(a_problem)
 ```
 """
+
 
 class Backtrack(object):
     def solve(self, *args, **kwargs):

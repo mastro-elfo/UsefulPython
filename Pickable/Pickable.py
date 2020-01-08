@@ -1,23 +1,28 @@
 import pickle
 
+
 def dump(obj, file_name, *args, **kwargs):
     """Writes the pickled representation of obj to a file."""
     with open(file_name, "wb") as fp:
         pickle.dump(obj, fp, *args, **kwargs)
 
+
 def dumps(obj, *args, **kwargs):
     """Alias of pickle.dumps"""
     return pickle.dumps(obj, *args, **kwargs)
 
+
 def load(file_name, *args, **kwargs):
     """Loads data from file."""
-    with open(file_name, 'rb') as fp:
+    with open(file_name, "rb") as fp:
         obj = pickle.load(fp, *args, **kwargs)
     return obj
+
 
 def loads(bytes_object, *args, **kwargs):
     """Alias of pickle.loads"""
     return pickle.loads(bytes_object, *args, **kwargs)
+
 
 class Pickable(object):
     def dump(self, file_name, *args, **kwargs):
@@ -38,10 +43,12 @@ class Pickable(object):
         """Returns a Pickable object loaded from bytes."""
         return loads(bytes_object)
 
+
 # Tests
 import unittest
 from os import remove
 from os.path import isfile
+
 
 class TestPickable(unittest.TestCase):
     def setUp(self):
@@ -56,15 +63,16 @@ class TestPickable(unittest.TestCase):
         self.assertTrue(isinstance(self.pickable, Pickable))
 
     def test_dump_load(self):
-        self.pickable.dump('test.pickle')
-        pickled = Pickable.load('test.pickle')
-        self.assertTrue(isfile('test.pickle'))
+        self.pickable.dump("test.pickle")
+        pickled = Pickable.load("test.pickle")
+        self.assertTrue(isfile("test.pickle"))
         self.assertTrue(isinstance(pickled, Pickable))
-        remove('test.pickle')
+        remove("test.pickle")
 
     def test_dumps_loads(self):
         pickled = Pickable.loads(self.pickable.dumps())
         self.assertTrue(isinstance(pickled, Pickable))
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

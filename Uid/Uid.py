@@ -1,10 +1,12 @@
 from uuid import uuid1
 
+
 def uid():
     """
     @see: https://docs.python.org/3.8/library/uuid.html?highlight=uuid#module-uuid
     """
     return uuid1()
+
 
 class Uid(object):
     """Defines and set a unique id as property
@@ -17,7 +19,7 @@ class Uid(object):
 
     def __init__(self, *args, **kwargs):
         self.__id = uid()
-        super(Uid, self).__init__(*args,  **kwargs)
+        super(Uid, self).__init__(*args, **kwargs)
 
     def __eq__(self, other):
         """Implements the `==` operator"""
@@ -29,7 +31,8 @@ class Uid(object):
         """Implements the `hash` built-in function"""
         return hash(self.id)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     a = Uid()
     b = Uid()
     c = Uid()
