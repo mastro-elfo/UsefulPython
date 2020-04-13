@@ -30,17 +30,3 @@ class Uid(object):
     def __hash__(self):
         """Implements the `hash` built-in function"""
         return hash(self.id)
-
-
-if __name__ == "__main__":
-    a = Uid()
-    b = Uid()
-    c = Uid()
-
-    assert isinstance(a, Uid)
-
-    # Force `c` to have the same id as `a`
-    c._Uid__id = a.id
-
-    assert a != b
-    assert a == c
