@@ -1,4 +1,4 @@
-def chunks(string, size = 1):
+def chunks(string, size=1):
     """Splits `string` in chunks of size `size`
 
     Returns a generator.
@@ -6,4 +6,4 @@ def chunks(string, size = 1):
     """
     # Create a generator
     for i in range(0, len(string), size):
-        yield string[i : i+size]
+        yield string[i : i + size]
