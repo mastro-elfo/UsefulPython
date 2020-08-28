@@ -1,5 +1,5 @@
 from unittest import TestCase
-from Uid import Uid, uid
+from .Uid import Uid, uid
 
 
 class TestUidClass(TestCase):

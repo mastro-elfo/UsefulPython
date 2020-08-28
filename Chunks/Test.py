@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from Chunks import chunks
+from .Chunks import chunks
 
 
 class Test(TestCase):
