@@ -1,3 +1,6 @@
+# My gitignores
+testall.sh
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
