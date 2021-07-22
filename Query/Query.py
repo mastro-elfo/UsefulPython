@@ -37,26 +37,16 @@ class Query(object):
 
         query += self._method
 
-        if self._select_cols:
-            if isinstance(self._select_cols, list):
-                query += f" {', '.join(self._select_cols)}"
-            else:
-                query += f" {self._select_cols}"
+        if isinstance(self._select_cols, list):
+            query += f" {', '.join(self._select_cols)}"
+        elif self._select_cols:
+            query += f" {self._select_cols}"
 
-        if self._from:
-            query += f" FROM {self._from}"
-
-        if self._table:
-            query += f" {self._table}"
-
-        if self._columns:
-            query += f" ({', '.join(self._columns)})"
-
-        if self._values:
-            query += f" VALUES ({', '.join(str(val) for val in self._values)})"
-
-        if self._set:
-            query += f" SET {', '.join(self._set)}"
+        query += f" FROM {self._from}" if self._from else ""
+        query += f" {self._table}" if self._table else ""
+        query += f" ({', '.join(self._columns)})" if self._columns else ""
+        query += f" VALUES ({', '.join(str(val) for val in self._values)})" if self._values else ""
+        query += f" SET {', '.join(self._set)}" if self._set else ""
 
         if self._joins:
             for join, on in self._joins.items():
@@ -66,14 +56,9 @@ class Query(object):
             for join, on in self._lefts.items():
                 query += f" LEFT JOIN {join} ON {on}"
 
-        if self._where:
-            query += f" WHERE {self._where}"
-
-        if self._order:
-            query += f" ORDER BY {', '.join(self._order)}"
-
-        if self._limit:
-            query += f" LIMIT {self._limit}"
+        query += f" WHERE {self._where}" if self._where else ""
+        query += f" ORDER BY {', '.join(self._order)}" if self._order else ""
+        query += f" LIMIT {self._limit}" if self._limit else ""
 
         return query
 
