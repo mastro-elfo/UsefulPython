@@ -1,6 +1,7 @@
+import unittest
 from unittest import TestCase
 
-from Query import Query
+from .Query import Query
 
 
 class Test(TestCase):
@@ -117,7 +118,8 @@ class Test(TestCase):
 
     def testDeleteShort(self):
         self.assertEqual(
-            str(Query().delete("table", "id = 0")), "DELETE FROM table WHERE id = 0"
+            str(Query().delete("table", "id = 0")
+                ), "DELETE FROM table WHERE id = 0"
         )
 
 
