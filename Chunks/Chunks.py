@@ -6,4 +6,4 @@ def chunks(string, size=1):
     """
     # Create a generator
     for i in range(0, len(string), size):
-        yield string[i : i + size]
+        yield string[i: i + size]
