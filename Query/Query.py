@@ -1,4 +1,6 @@
 class Query(object):
+    """Query builder class"""
+
     def __init__(self):
         (
             self._method,
@@ -29,6 +31,8 @@ class Query(object):
         )
 
     def __str__(self):
+        """Convert object to query string"""
+
         query = ""
 
         query += self._method
@@ -74,10 +78,14 @@ class Query(object):
         return query
 
     def method(self, method):
+        """Set method property"""
+
         self._method = method
         return self
 
     def select(self, cols="*", from_table="", where=""):
+        """Set SELECT method"""
+
         self._select_cols = cols
         self.method("SELECT")
         if from_table:
@@ -87,6 +95,8 @@ class Query(object):
         return self
 
     def insert(self, table, values=None):
+        """Set INSERT INTO method"""
+
         self._table = table
         self.method("INSERT INTO")
         if values:
@@ -94,6 +104,8 @@ class Query(object):
         return self
 
     def update(self, table, set_values=None, where=""):
+        """Set UPDATE method"""
+
         self._table = table
         self.method("UPDATE")
         if set_values:
@@ -103,6 +115,8 @@ class Query(object):
         return self
 
     def delete(self, from_table="", where=""):
+        """Set DELETE method"""
+
         self.method("DELETE")
         if from_table:
             self.from_table(from_table)
@@ -111,33 +125,47 @@ class Query(object):
         return self
 
     def set(self, cols=None):
+        """Set values to update"""
+
         if cols:
             self._set = [f"{key} = {value}" for key, value in cols.items()]
         return self
 
     def values(self, cols=None):
+        """Set values to insert"""
+
         if cols:
             self._columns = cols.keys()
             self._values = cols.values()
         return self
 
     def from_table(self, table):
+        """Set FROM table"""
+
         self._from = table
         return self
 
     def join(self, join, on):
+        """Add INNER JOIN"""
+
         self._joins[join] = on
         return self
 
     def left(self, join, on):
+        """Add LEFT JOIN"""
+
         self._lefts[join] = on
         return self
 
     def order(self, *conditions):
+        """Add ORDER condition"""
+
         self._order.extend(conditions)
         return self
 
     def limit(self, offset, limit=None):
+        """Add LIMIT"""
+
         if limit is None:
             self._limit = f" {offset}"
         else:
@@ -145,6 +173,8 @@ class Query(object):
         return self
 
     def where(self, condition):
+        """Add WHERE clause"""
+
         if isinstance(condition, str):
             self._where = condition
         else:
@@ -152,6 +182,8 @@ class Query(object):
         return self
 
     def and_(self, condition):
+        """Add AND condition"""
+
         if isinstance(condition, str):
             self._where += f" AND {condition}"
         else:
@@ -159,6 +191,8 @@ class Query(object):
         return self
 
     def or_(self, condition):
+        """Add OR condition"""
+
         if isinstance(condition, str):
             self._where += f" OR {condition}"
         else:
