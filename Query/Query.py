@@ -22,7 +22,7 @@ class Query(object):
             "",
             list(),
             "",
-            list(),
+            None,
             list(),
             list(),
             list(),
