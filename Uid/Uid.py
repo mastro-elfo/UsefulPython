@@ -3,7 +3,9 @@ from uuid import uuid1
 
 def uid():
     """
-    @see: https://docs.python.org/3.8/library/uuid.html?highlight=uuid#module-uuid
+    See Also
+    --------
+    https://docs.python.org/3.8/library/uuid.html?highlight=uuid#module-uuid
     """
     return uuid1()
 
