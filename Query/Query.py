@@ -48,7 +48,10 @@ class Query(object):
         query += f" FROM {self._from}" if self._from else ""
         query += f" {self._table}" if self._table else ""
         query += f" ({', '.join(self._columns)})" if self._columns else ""
-        query += f" VALUES ({', '.join(str(val) for val in self._values)})" if self._values else ""
+        query += \
+            f" VALUES ({', '.join(str(val) for val in self._values)})"\
+            if self._values\
+            else ""
         query += f" SET {', '.join(self._set)}" if self._set else ""
 
         if self._joins:

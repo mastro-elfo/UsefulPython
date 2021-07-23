@@ -27,7 +27,8 @@ class Test(TestCase):
                 .and_("deleted = 0")
                 .order("main DESC")
             ),
-            "SELECT id, name FROM table WHERE id = 0 AND deleted = 0 ORDER BY main DESC",
+            "SELECT id, name FROM table WHERE id = 0 AND deleted = 0 ORDER BY"
+            " main DESC",
         )
 
     def testReadShort(self):
@@ -37,7 +38,8 @@ class Test(TestCase):
                 .select(["id", "name"], "table", ["id = 0", "deleted = 0"])
                 .order("main DESC")
             ),
-            "SELECT id, name FROM table WHERE id = 0 AND deleted = 0 ORDER BY main DESC",
+            "SELECT id, name FROM table WHERE id = 0 AND deleted = 0 ORDER BY"
+            " main DESC",
         )
 
     def testJoin(self):
@@ -50,17 +52,23 @@ class Test(TestCase):
                 .where("t.id = 0")
                 .and_("t.deleted = 0")
             ),
-            "SELECT t.id, t.name FROM table t INNER JOIN other o ON o.tableId = t.id WHERE t.id = 0 AND t.deleted = 0",
+            "SELECT t.id, t.name FROM table t INNER JOIN other o ON o.tableId"
+            " = t.id WHERE t.id = 0 AND t.deleted = 0",
         )
 
     def testJoinShort(self):
         self.assertEqual(
             str(
                 Query()
-                .select(["t.id", "t.name"], "table t", ["t.id = 0", "t.deleted = 0"])
+                .select(
+                    ["t.id", "t.name"],
+                    "table t",
+                    ["t.id = 0", "t.deleted = 0"]
+                )
                 .join("other o", "o.tableId = t.id")
             ),
-            "SELECT t.id, t.name FROM table t INNER JOIN other o ON o.tableId = t.id WHERE t.id = 0 AND t.deleted = 0",
+            "SELECT t.id, t.name FROM table t INNER JOIN other o ON o.tableId"
+            " = t.id WHERE t.id = 0 AND t.deleted = 0",
         )
 
     def testLeftJoin(self):
@@ -73,17 +81,23 @@ class Test(TestCase):
                 .where("t.id = 0")
                 .and_("t.deleted = 0")
             ),
-            "SELECT t.id, t.name FROM table t LEFT JOIN other o ON o.tableId = t.id WHERE t.id = 0 AND t.deleted = 0",
+            "SELECT t.id, t.name FROM table t LEFT JOIN other o ON o.tableId"
+            " = t.id WHERE t.id = 0 AND t.deleted = 0",
         )
 
     def testLeftJoinShort(self):
         self.assertEqual(
             str(
                 Query()
-                .select(["t.id", "t.name"], "table t", ["t.id = 0", "t.deleted = 0"])
+                .select(
+                    ["t.id", "t.name"],
+                    "table t",
+                    ["t.id = 0", "t.deleted = 0"]
+                )
                 .left("other o", "o.tableId = t.id")
             ),
-            "SELECT t.id, t.name FROM table t LEFT JOIN other o ON o.tableId = t.id WHERE t.id = 0 AND t.deleted = 0",
+            "SELECT t.id, t.name FROM table t LEFT JOIN other o ON o.tableId"
+            " = t.id WHERE t.id = 0 AND t.deleted = 0",
         )
 
     def testUpdate(self):
@@ -95,7 +109,8 @@ class Test(TestCase):
                 .where("id = 0")
                 .and_("deleted = 0")
             ),
-            "UPDATE table SET name = 'new name', number = 1, string = 'str' WHERE id = 0 AND deleted = 0",
+            "UPDATE table SET name = 'new name', number = 1, string = 'str'"
+            " WHERE id = 0 AND deleted = 0",
         )
 
     def testUpdateShort(self):
@@ -107,7 +122,8 @@ class Test(TestCase):
                     ["id = 0", "deleted = 0"],
                 )
             ),
-            "UPDATE table SET name = 'new name', number = 1, string = 'str' WHERE id = 0 AND deleted = 0",
+            "UPDATE table SET name = 'new name', number = 1, string = 'str'"
+            " WHERE id = 0 AND deleted = 0",
         )
 
     def testDelete(self):
