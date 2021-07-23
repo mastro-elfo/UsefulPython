@@ -1,3 +1,6 @@
+from __future__ import annotations
+
+
 class Query(object):
     """Query builder class"""
 
@@ -30,7 +33,7 @@ class Query(object):
             dict(),
         )
 
-    def __str__(self):
+    def __str__(self) -> str:
         """Convert object to query string"""
 
         query = ""
@@ -62,13 +65,13 @@ class Query(object):
 
         return query
 
-    def method(self, method):
+    def method(self, method) -> Query:
         """Set method property"""
 
         self._method = method
         return self
 
-    def select(self, cols="*", from_table="", where=""):
+    def select(self, cols="*", from_table="", where="") -> Query:
         """Set SELECT method"""
 
         self._select_cols = cols
@@ -79,7 +82,7 @@ class Query(object):
             self.where(where)
         return self
 
-    def insert(self, table, values=None):
+    def insert(self, table, values=None) -> Query:
         """Set INSERT INTO method"""
 
         self._table = table
@@ -88,7 +91,7 @@ class Query(object):
             self.values(values)
         return self
 
-    def update(self, table, set_values=None, where=""):
+    def update(self, table, set_values=None, where="") -> Query:
         """Set UPDATE method"""
 
         self._table = table
@@ -99,7 +102,7 @@ class Query(object):
             self.where(where)
         return self
 
-    def delete(self, from_table="", where=""):
+    def delete(self, from_table="", where="") -> Query:
         """Set DELETE method"""
 
         self.method("DELETE")
@@ -109,14 +112,14 @@ class Query(object):
             self.where(where)
         return self
 
-    def set(self, cols=None):
+    def set(self, cols=None) -> Query:
         """Set values to update"""
 
         if cols:
             self._set = [f"{key} = {value}" for key, value in cols.items()]
         return self
 
-    def values(self, cols=None):
+    def values(self, cols=None) -> Query:
         """Set values to insert"""
 
         if cols:
@@ -124,31 +127,31 @@ class Query(object):
             self._values = cols.values()
         return self
 
-    def from_table(self, table):
+    def from_table(self, table) -> Query:
         """Set FROM table"""
 
         self._from = table
         return self
 
-    def join(self, join, on):
+    def join(self, join, on) -> Query:
         """Add INNER JOIN"""
 
         self._joins[join] = on
         return self
 
-    def left(self, join, on):
+    def left(self, join, on) -> Query:
         """Add LEFT JOIN"""
 
         self._lefts[join] = on
         return self
 
-    def order(self, *conditions):
+    def order(self, *conditions) -> Query:
         """Add ORDER condition"""
 
         self._order.extend(conditions)
         return self
 
-    def limit(self, offset, limit=None):
+    def limit(self, offset, limit=None) -> Query:
         """Add LIMIT"""
 
         if limit is None:
@@ -157,7 +160,7 @@ class Query(object):
             self._limit = f" {offset}, {limit}"
         return self
 
-    def where(self, condition):
+    def where(self, condition) -> Query:
         """Add WHERE clause"""
 
         if isinstance(condition, str):
@@ -166,7 +169,7 @@ class Query(object):
             self._where = " AND ".join(condition)
         return self
 
-    def and_(self, condition):
+    def and_(self, condition) -> Query:
         """Add AND condition"""
 
         if isinstance(condition, str):
@@ -175,7 +178,7 @@ class Query(object):
             self._where += f" AND {' AND '.join(condition)}"
         return self
 
-    def or_(self, condition):
+    def or_(self, condition) -> Query:
         """Add OR condition"""
 
         if isinstance(condition, str):
