@@ -1,12 +1,15 @@
-"""Measures the execution time.
+"""Measures the execution time
 
-Modifies the values returned by the non decorated function so that the first value is the measure and the second value is what the function returned.
+Modifies the values returned by the non decorated function so that the first
+value is the measure and the second value is what the function returned.
 """
 
 from functools import wraps
 from time import perf_counter
 
+
 def ExecTime(func):
+    """Decorate a function to measure execution time"""
     @wraps(func)
     def wrapper(*args, **kwargs):
         # Before func
