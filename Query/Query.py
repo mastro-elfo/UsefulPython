@@ -4,34 +4,18 @@ from __future__ import annotations
 class Query(object):
     """Query builder class"""
 
-    def __init__(self):
-        (
-            self._method,
-            self._table,
-            self._from,
-            self._where,
-            self._order,
-            self._limit,
-            self._select_cols,
-            self._columns,
-            self._values,
-            self._set,
-            self._joins,
-            self._lefts,
-        ) = (
-            "",
-            "",
-            "",
-            "",
-            list(),
-            "",
-            None,
-            list(),
-            list(),
-            list(),
-            dict(),
-            dict(),
-        )
+    _method: str = ""
+    _table: str = ""
+    _from: str = ""
+    _where: str = ""
+    _order: list = None
+    _limit: str = ""
+    _select_cols: dict = None
+    _columns: list = None
+    _values: list = None
+    _set: list = None
+    _joins: dict = None
+    _lefts: dict = None
 
     def __str__(self) -> str:
         """Convert object to query string"""
@@ -139,18 +123,24 @@ class Query(object):
     def join(self, join, on) -> Query:
         """Add INNER JOIN"""
 
+        if self._joins is None:
+            self._joins = dict()
         self._joins[join] = on
         return self
 
     def left(self, join, on) -> Query:
         """Add LEFT JOIN"""
 
+        if self._lefts is None:
+            self._lefts = dict()
         self._lefts[join] = on
         return self
 
     def order(self, *conditions) -> Query:
         """Add ORDER condition"""
 
+        if self._order is None:
+            self._order = list()
         self._order.extend(conditions)
         return self
 
