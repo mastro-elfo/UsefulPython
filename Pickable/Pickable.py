@@ -25,6 +25,8 @@ def loads(bytes_object, *args, **kwargs):
 
 
 class Pickable(object):
+    """Add `dump[s]` and `load[s]` methods to object"""
+
     def dump(self, file_name, *args, **kwargs):
         """Writes the pickled representation of self to a file."""
         dump(self, file_name, *args, **kwargs)
