@@ -1,10 +1,14 @@
-import unittest
 from unittest import TestCase
 
-from .Query import Query
+from Query import Query
 
 
 class Test(TestCase):
+    """Test with coverage
+
+    `coverage -m unittest Test.py && coverage html`
+    """
+
     def testCreate(self):
         self.assertEqual(
             str(Query().insert("table").values({"id": 0, "name": "'name'"})),
@@ -137,7 +141,3 @@ class Test(TestCase):
             str(Query().delete("table", "id = 0")
                 ), "DELETE FROM table WHERE id = 0"
         )
-
-
-if __name__ == "__main__":
-    unittest.main()
