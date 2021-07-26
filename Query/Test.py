@@ -6,7 +6,7 @@ from Query import Query
 class Test(TestCase):
     """Test with coverage
 
-    `coverage -m unittest Test.py && coverage html`
+    `coverage run -m unittest Test.py && coverage html`
     """
 
     def testCreate(self):
@@ -30,9 +30,23 @@ class Test(TestCase):
                 .where("id = 0")
                 .and_("deleted = 0")
                 .order("main DESC")
+                .limit(0, 10)
             ),
             "SELECT id, name FROM table WHERE id = 0 AND deleted = 0 ORDER BY"
-            " main DESC",
+            " main DESC LIMIT 0, 10",
+        )
+        self.assertEqual(
+            str(
+                Query()
+                .select("id, name")
+                .from_table("table")
+                .where("id = 0")
+                .and_("deleted = 0")
+                .order("main DESC")
+                .limit(0, 10)
+            ),
+            "SELECT id, name FROM table WHERE id = 0 AND deleted = 0 ORDER BY"
+            " main DESC LIMIT 0, 10",
         )
 
     def testReadShort(self):
@@ -41,9 +55,10 @@ class Test(TestCase):
                 Query()
                 .select(["id", "name"], "table", ["id = 0", "deleted = 0"])
                 .order("main DESC")
+                .limit(10)
             ),
             "SELECT id, name FROM table WHERE id = 0 AND deleted = 0 ORDER BY"
-            " main DESC",
+            " main DESC LIMIT 10",
         )
 
     def testJoin(self):
