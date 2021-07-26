@@ -148,9 +148,9 @@ class Query(object):
         """Add LIMIT"""
 
         if limit is None:
-            self._limit = f" {offset}"
+            self._limit = f"{offset}"
         else:
-            self._limit = f" {offset}, {limit}"
+            self._limit = f"{offset}, {limit}"
         return self
 
     def where(self, condition) -> Query:
