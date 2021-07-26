@@ -156,3 +156,34 @@ class Test(TestCase):
             str(Query().delete("table", "id = 0")
                 ), "DELETE FROM table WHERE id = 0"
         )
+
+    def testAnd(self):
+        self.assertEqual(
+            str(
+                Query()
+                .delete()
+                .from_table("table")
+                .where("id = 0")
+                .and_(["user_id = 1", "is_public = 1"])
+            ),
+            "DELETE FROM table WHERE id = 0 AND user_id = 1 AND is_public = 1",
+        )
+
+    def testOr(self):
+        self.assertEqual(
+            str(
+                Query()
+                .select(["id", "name"], "table", "id = 0")
+                .or_("user_id = 1")
+            ),
+            "SELECT id, name FROM table WHERE id = 0 OR user_id = 1",
+        )
+        self.assertEqual(
+            str(
+                Query()
+                .select(["id", "name"], "table", "id = 0")
+                .or_(["user_id = 1", "is_public = 1"])
+            ),
+            "SELECT id, name FROM table WHERE id = 0 OR user_id = 1 "
+            "OR is_public = 1",
+        )
